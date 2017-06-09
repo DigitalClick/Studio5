@@ -1,0 +1,48 @@
+{
+  "ProjectGuid": "1d8bab22-9b90-4b26-a86d-c3c53990c22e",
+  "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
+  "AppIdentifier": "com.telerik.sampleinappbrowser",
+  "ProjectName": "sample-in-app-browser",
+  "AndroidPermissions": [
+    "android.permission.INTERNET"
+  ],
+  "DeviceOrientations": [
+    "Portrait",
+    "Landscape"
+  ],
+  "iOSStatusBarStyle": "Default",
+  "AndroidHardwareAcceleration": "true",
+  "BundleVersion": "1.0",
+  "iOSDeviceFamily": [
+    "1",
+    "2"
+  ],
+  "AndroidVersionCode": "1",
+  "FrameworkVersion": "6.4.0",
+  "CorePlugins": [
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-splashscreen",
+    "cordova-plugin-whitelist"
+  ],
+  "DisplayName": "InAppBrowser",
+  "WP8SupportedResolutions": [
+    "ID_RESOLUTION_WVGA",
+    "ID_RESOLUTION_WXGA",
+    "ID_RESOLUTION_HD720P"
+  ],
+  "Author": "",
+  "WP8Publisher": "",
+  "WP8TileTitle": "",
+  "WP8Capabilities": [],
+  "iOSBackgroundMode": [],
+  "WP8Requirements": [],
+  "Description": "sample-in-app-browser",
+  "Framework": "Cordova",
+  "projectVersion": 1,
+  "WP8PublisherID": "{d72090b0-7735-4777-865e-9dec173a2498}",
+  "WP8ProductID": "{eca65b89-dbd0-494f-989b-b1c9be07f584}",
+  "WP8PackageIdentityName": "1234Telerik.com.telerik.sampleinappbrowser",
+  "WP8WindowsPublisherName": "CN=Telerik",
+  "WPSdk": "8.1",
+  "iOSDeploymentTarget": "6.0"
+}
