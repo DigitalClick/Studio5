@@ -16,12 +16,8 @@
         // device APIs are available
         //
         function onDeviceReady() {
-            var ref = window.open('https://GoDigital.accenture.com/Studio5/', '_blank', 'location=yes');
-            ref.addEventListener('loadstart', function (event) { alert('start: ' + event.url); });
-            ref.addEventListener('loadstop', function (event) { alert('stop: ' + event.url); });
-            ref.addEventListener('loaderror', function (event) { alert('error: ' + event.message); });
-            ref.addEventListener('exit', function (event) { alert(event.type); });
-        }    
+            window.open('https://GoDigital.accenture.com/Studio5/', '_self', 'location=yes');
+        }
 
 
 
@@ -34,12 +30,10 @@
     </script>
 
     <style>
-
-
     </style>
 
 </head>
-<body onload="OpenURL()">
+<body onload="onDeviceReady()">
     <!--<iframe src="https://GoDigital.accenture.com/Studio5/"  style="border: 0; width: 100%; height: 100vh;">
         Your browser doesn't support iFrames.</iframe>-->
     <!--input id="Button1" type="button" onclick="OpenPage('https://GoDigital.accenture.com/Studio5/')" value="Studio:5" /-->
