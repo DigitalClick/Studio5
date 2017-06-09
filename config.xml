@@ -2,8 +2,8 @@
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
     id          = "com.studio5.*"
-    versionCode = "09062017"
-    version     = "09.06.2017.10.21" >
+    versionCode = "1"
+    version     = "09.06.2017.13.30" >
 
 <!-- versionCode is optional and Android only -->
 
@@ -101,7 +101,7 @@
   <gap:splash src="res/screen/windows-phone/screen-portrait.jpg"      gap:platform="winphone" />
 
   <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>100</string>
+    <string>Studion:5 kakus2.0</string>
   </gap:config-file>
 
   <!--
