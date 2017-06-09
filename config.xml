@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.studio5.*"
+    id          = "com.studio5.007"
     versionCode = "1"
-    version     = "09.06.2017.13.30" >
+    version     = "09.06.2017.14.23" >
 
 <!-- versionCode is optional and Android only -->
 
@@ -12,7 +12,7 @@
   <description>
       Liquid And Intelligent
   </description>
-  <content src="https://GoDigital.Accenture.com/Studio5"></content>
+  <!-- content src="https://GoDigital.Accenture.com/Studio5"></content -->
   <author href="https://GoDigital.Accenture.com/Studio5" email="Go.Digital@accenture.com">
       Go Digital With Studio:5
   </author>
@@ -72,7 +72,7 @@
     -->
 
   <!-- Define app icon for each platform. -->
-  <icon src="icon.png" />
+  <icon src="res/icon/icon.png" />
   <icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:qualifier="ldpi" />
   <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:qualifier="mdpi" />
   <icon src="res/icon/android/icon-72-hdpi.png"   gap:platform="android"    gap:qualifier="hdpi" />
