@@ -1,0 +1,293 @@
+From: "Saved by Internet Explorer 11"
+Subject: 
+Date: Fri, 9 Jun 2017 15:12:53 +0530
+MIME-Version: 1.0
+Content-Type: text/html;
+	charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Location: https://raw.githubusercontent.com/apache/cordova-js/master/src/cordova.js
+X-MimeOLE: Produced By Microsoft MimeOLE V10.0.10011.16384
+
+=EF=BB=BF<!DOCTYPE HTML>
+<!DOCTYPE html PUBLIC "" ""><HTML><HEAD><META content=3D"IE=3D11.0000"=20
+http-equiv=3D"X-UA-Compatible">
+
+<META http-equiv=3D"Content-Type" content=3D"text/html; =
+charset=3Dutf-8">
+<META name=3D"GENERATOR" content=3D"MSHTML 11.00.10586.916"></HEAD>
+<BODY>
+<PRE>/*=0A=
+ *=0A=
+ * Licensed to the Apache Software Foundation (ASF) under one=0A=
+ * or more contributor license agreements.  See the NOTICE file=0A=
+ * distributed with this work for additional information=0A=
+ * regarding copyright ownership.  The ASF licenses this file=0A=
+ * to you under the Apache License, Version 2.0 (the=0A=
+ * "License"); you may not use this file except in compliance=0A=
+ * with the License.  You may obtain a copy of the License at=0A=
+ *=0A=
+ *   http://www.apache.org/licenses/LICENSE-2.0=0A=
+ *=0A=
+ * Unless required by applicable law or agreed to in writing,=0A=
+ * software distributed under the License is distributed on an=0A=
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY=0A=
+ * KIND, either express or implied.  See the License for the=0A=
+ * specific language governing permissions and limitations=0A=
+ * under the License.=0A=
+ *=0A=
+*/=0A=
+=0A=
+// Workaround for Windows 10 in hosted environment case=0A=
+// =
+http://www.w3.org/html/wg/drafts/html/master/browsers.html#named-access-o=
+n-the-window-object=0A=
+if (window.cordova &amp;&amp; !(window.cordova instanceof HTMLElement)) {=0A=
+    throw new Error("cordova already defined");=0A=
+}=0A=
+=0A=
+=0A=
+var channel =3D require('cordova/channel');=0A=
+var platform =3D require('cordova/platform');=0A=
+=0A=
+=0A=
+/**=0A=
+ * Intercept calls to addEventListener + removeEventListener and handle =
+deviceready,=0A=
+ * resume, and pause events.=0A=
+ */=0A=
+var m_document_addEventListener =3D document.addEventListener;=0A=
+var m_document_removeEventListener =3D document.removeEventListener;=0A=
+var m_window_addEventListener =3D window.addEventListener;=0A=
+var m_window_removeEventListener =3D window.removeEventListener;=0A=
+=0A=
+/**=0A=
+ * Houses custom event handlers to intercept on document + window event =
+listeners.=0A=
+ */=0A=
+var documentEventHandlers =3D {},=0A=
+    windowEventHandlers =3D {};=0A=
+=0A=
+document.addEventListener =3D function(evt, handler, capture) {=0A=
+    var e =3D evt.toLowerCase();=0A=
+    if (typeof documentEventHandlers[e] !=3D 'undefined') {=0A=
+        documentEventHandlers[e].subscribe(handler);=0A=
+    } else {=0A=
+        m_document_addEventListener.call(document, evt, handler, =
+capture);=0A=
+    }=0A=
+};=0A=
+=0A=
+window.addEventListener =3D function(evt, handler, capture) {=0A=
+    var e =3D evt.toLowerCase();=0A=
+    if (typeof windowEventHandlers[e] !=3D 'undefined') {=0A=
+        windowEventHandlers[e].subscribe(handler);=0A=
+    } else {=0A=
+        m_window_addEventListener.call(window, evt, handler, capture);=0A=
+    }=0A=
+};=0A=
+=0A=
+document.removeEventListener =3D function(evt, handler, capture) {=0A=
+    var e =3D evt.toLowerCase();=0A=
+    // If unsubscribing from an event that is handled by a plugin=0A=
+    if (typeof documentEventHandlers[e] !=3D "undefined") {=0A=
+        documentEventHandlers[e].unsubscribe(handler);=0A=
+    } else {=0A=
+        m_document_removeEventListener.call(document, evt, handler, =
+capture);=0A=
+    }=0A=
+};=0A=
+=0A=
+window.removeEventListener =3D function(evt, handler, capture) {=0A=
+    var e =3D evt.toLowerCase();=0A=
+    // If unsubscribing from an event that is handled by a plugin=0A=
+    if (typeof windowEventHandlers[e] !=3D "undefined") {=0A=
+        windowEventHandlers[e].unsubscribe(handler);=0A=
+    } else {=0A=
+        m_window_removeEventListener.call(window, evt, handler, capture);=0A=
+    }=0A=
+};=0A=
+=0A=
+function createEvent(type, data) {=0A=
+    var event =3D document.createEvent('Events');=0A=
+    event.initEvent(type, false, false);=0A=
+    if (data) {=0A=
+        for (var i in data) {=0A=
+            if (data.hasOwnProperty(i)) {=0A=
+                event[i] =3D data[i];=0A=
+            }=0A=
+        }=0A=
+    }=0A=
+    return event;=0A=
+}=0A=
+=0A=
+=0A=
+var cordova =3D {=0A=
+    define:define,=0A=
+    require:require,=0A=
+    version:PLATFORM_VERSION_BUILD_LABEL,=0A=
+    platformVersion:PLATFORM_VERSION_BUILD_LABEL,=0A=
+    platformId:platform.id,=0A=
+    /**=0A=
+     * Methods to add/remove your own addEventListener hijacking on =
+document + window.=0A=
+     */=0A=
+    addWindowEventHandler:function(event) {=0A=
+        return (windowEventHandlers[event] =3D channel.create(event));=0A=
+    },=0A=
+    addStickyDocumentEventHandler:function(event) {=0A=
+        return (documentEventHandlers[event] =3D =
+channel.createSticky(event));=0A=
+    },=0A=
+    addDocumentEventHandler:function(event) {=0A=
+        return (documentEventHandlers[event] =3D channel.create(event));=0A=
+    },=0A=
+    removeWindowEventHandler:function(event) {=0A=
+        delete windowEventHandlers[event];=0A=
+    },=0A=
+    removeDocumentEventHandler:function(event) {=0A=
+        delete documentEventHandlers[event];=0A=
+    },=0A=
+    /**=0A=
+     * Retrieve original event handlers that were replaced by Cordova=0A=
+     *=0A=
+     * @return object=0A=
+     */=0A=
+    getOriginalHandlers: function() {=0A=
+        return {'document': {'addEventListener': =
+m_document_addEventListener, 'removeEventListener': =
+m_document_removeEventListener},=0A=
+        'window': {'addEventListener': m_window_addEventListener, =
+'removeEventListener': m_window_removeEventListener}};=0A=
+    },=0A=
+    /**=0A=
+     * Method to fire event from native code=0A=
+     * bNoDetach is required for events which cause an exception which =
+needs to be caught in native code=0A=
+     */=0A=
+    fireDocumentEvent: function(type, data, bNoDetach) {=0A=
+        var evt =3D createEvent(type, data);=0A=
+        if (typeof documentEventHandlers[type] !=3D 'undefined') {=0A=
+            if( bNoDetach ) {=0A=
+                documentEventHandlers[type].fire(evt);=0A=
+            }=0A=
+            else {=0A=
+                setTimeout(function() {=0A=
+                    // Fire deviceready on listeners that were =
+registered before cordova.js was loaded.=0A=
+                    if (type =3D=3D 'deviceready') {=0A=
+                        document.dispatchEvent(evt);=0A=
+                    }=0A=
+                    documentEventHandlers[type].fire(evt);=0A=
+                }, 0);=0A=
+            }=0A=
+        } else {=0A=
+            document.dispatchEvent(evt);=0A=
+        }=0A=
+    },=0A=
+    fireWindowEvent: function(type, data) {=0A=
+        var evt =3D createEvent(type,data);=0A=
+        if (typeof windowEventHandlers[type] !=3D 'undefined') {=0A=
+            setTimeout(function() {=0A=
+                windowEventHandlers[type].fire(evt);=0A=
+            }, 0);=0A=
+        } else {=0A=
+            window.dispatchEvent(evt);=0A=
+        }=0A=
+    },=0A=
+=0A=
+    /**=0A=
+     * Plugin callback mechanism.=0A=
+     */=0A=
+    // Randomize the starting callbackId to avoid collisions after =
+refreshing or navigating.=0A=
+    // This way, it's very unlikely that any new callback would get the =
+same callbackId as an old callback.=0A=
+    callbackId: Math.floor(Math.random() * 2000000000),=0A=
+    callbacks:  {},=0A=
+    callbackStatus: {=0A=
+        NO_RESULT: 0,=0A=
+        OK: 1,=0A=
+        CLASS_NOT_FOUND_EXCEPTION: 2,=0A=
+        ILLEGAL_ACCESS_EXCEPTION: 3,=0A=
+        INSTANTIATION_EXCEPTION: 4,=0A=
+        MALFORMED_URL_EXCEPTION: 5,=0A=
+        IO_EXCEPTION: 6,=0A=
+        INVALID_ACTION: 7,=0A=
+        JSON_EXCEPTION: 8,=0A=
+        ERROR: 9=0A=
+    },=0A=
+=0A=
+    /**=0A=
+     * Called by native code when returning successful result from an =
+action.=0A=
+     */=0A=
+    callbackSuccess: function(callbackId, args) {=0A=
+        cordova.callbackFromNative(callbackId, true, args.status, =
+[args.message], args.keepCallback);=0A=
+    },=0A=
+=0A=
+    /**=0A=
+     * Called by native code when returning error result from an action.=0A=
+     */=0A=
+    callbackError: function(callbackId, args) {=0A=
+        // TODO: Deprecate callbackSuccess and callbackError in favour =
+of callbackFromNative.=0A=
+        // Derive success from status.=0A=
+        cordova.callbackFromNative(callbackId, false, args.status, =
+[args.message], args.keepCallback);=0A=
+    },=0A=
+=0A=
+    /**=0A=
+     * Called by native code when returning the result from an action.=0A=
+     */=0A=
+    callbackFromNative: function(callbackId, isSuccess, status, args, =
+keepCallback) {=0A=
+        try {=0A=
+            var callback =3D cordova.callbacks[callbackId];=0A=
+            if (callback) {=0A=
+                if (isSuccess &amp;&amp; status =3D=3D =
+cordova.callbackStatus.OK) {=0A=
+                    callback.success &amp;&amp; =
+callback.success.apply(null, args);=0A=
+                } else if (!isSuccess) {=0A=
+                    callback.fail &amp;&amp; callback.fail.apply(null, =
+args);=0A=
+                }=0A=
+                /*=0A=
+                else=0A=
+                    Note, this case is intentionally not caught.=0A=
+                    this can happen if isSuccess is true, but =
+callbackStatus is NO_RESULT=0A=
+                    which is used to remove a callback from the list =
+without calling the callbacks=0A=
+                    typically keepCallback is false in this case=0A=
+                */=0A=
+                // Clear callback if not expecting any more results=0A=
+                if (!keepCallback) {=0A=
+                    delete cordova.callbacks[callbackId];=0A=
+                }=0A=
+            }=0A=
+        }=0A=
+        catch (err) {=0A=
+            var msg =3D "Error in " + (isSuccess ? "Success" : "Error") =
++ " callbackId: " + callbackId + " : " + err;=0A=
+            console &amp;&amp; console.log &amp;&amp; console.log(msg);=0A=
+            cordova.fireWindowEvent("cordovacallbackerror", { 'message': =
+msg });=0A=
+            throw err;=0A=
+        }=0A=
+    },=0A=
+    addConstructor: function(func) {=0A=
+        channel.onCordovaReady.subscribe(function() {=0A=
+            try {=0A=
+                func();=0A=
+            } catch(e) {=0A=
+                console.log("Failed to run constructor: " + e);=0A=
+            }=0A=
+        });=0A=
+    }=0A=
+};=0A=
+=0A=
+=0A=
+module.exports =3D cordova;=0A=
+</PRE></BODY></HTML>
