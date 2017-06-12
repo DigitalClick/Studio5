@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.InAppBrowser5.x"
+    id          = "com.Studio5.x"
     versionCode = "1"
     version     = "09.06.2017.17.51" >
 
 <!-- versionCode is optional and Android only -->
 
-  <name>InAppBrowser:5</name>
+  <name>Studio:5</name>
 
   <description>
       Liquid And Intelligent
   </description>
   <!-- content src="https://GoDigital.Accenture.com/Studio5"></content -->
   <author href="https://GoDigital.Accenture.com/studio5" email="Go.Digital@accenture.com">
-      Go Digital With InAppBrowser:5
+      Go Digital With Studio:5
   </author>
 <!--
         If you do not want any permissions to be added to your app, add the
@@ -103,7 +103,7 @@
   <gap:splash src="res/screen/windows-phone/screen-portrait.jpg"      gap:platform="winphone" />
 
   <gap:config-file platform="ios" parent="CFBundleShortVersionString">
-    <string>InAppBrowsern:5 kakus2.0</string>
+    <string>Studio:5 kakus2.0</string>
   </gap:config-file>
 
   <!--
