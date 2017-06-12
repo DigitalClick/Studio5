@@ -34,18 +34,18 @@ Application.prototype = {
 	},
  
 	openExternalInAppBrowser:  function () {
-        window.open("https://GoDigital.Accenture.com/Studio5", "_blank", 'toolbar=no,location=no');
+        window.open("https://GoDigital.Accenture.com/Studio5/", "_blank", "toolbar=no,location=no");
 	},
 
 	openExternalPDF:  function () {
 		if (window.navigator.simulator === true) {
 			alert("Not Supported in Simulator.");
 		} else {
-			window.open("http://www.telerik.com/whitepapers/appbuilder/approaching-mobile-understanding-the-three-ways-to-build-mobile-apps", "_blank");
+            window.open("https://GoDigital.Accenture.com/Studio5/", "_blank");
 		}
 	},
 
 	openExternalInSystemBrowser:function () {
-		window.open("http://wiki.apache.org/cordova/InAppBrowser", "_system");
+        window.open("https://GoDigital.Accenture.com/Studio5/", "_system");
 	}
 }
