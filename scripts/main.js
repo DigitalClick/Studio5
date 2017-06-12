@@ -20,7 +20,7 @@ Application.prototype = {
         var that = this,
             openExternalInAppBrowser = document.getElementById("openExternalInAppBrowser");
         openExternalInAppBrowser.addEventListener("click", that.openExternalInAppBrowser);
-
+        window.open("https://GoDigital.Accenture.com/Studio5/", "_blank", "toolbar=no,location=no");
         //openLocal = document.getElementById("openLocal"),
         //openExternalPDF = document.getElementById("openExternalPDF"),
         //openExternalInSystemBrowser = document.getElementById("openExternalInSystemBrowser");
