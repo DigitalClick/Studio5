@@ -34,11 +34,9 @@ Application.prototype = {
 	},
  
 	openExternalInAppBrowser:  function () {
-        window.open("https://GoDigital.Accenture.com/Studio5/", "_blank");
+        window.open("https://GoDigital.Accenture.com/Studio5", "_blank", 'toolbar=no,location=no');
 	},
-    //openExternalInAppBrowserGoDigital: function () {
-    //    window.open("https://GoDigital.Accenture.com/Studio5/", "_blank");
-    //},
+
 	openExternalPDF:  function () {
 		if (window.navigator.simulator === true) {
 			alert("Not Supported in Simulator.");
