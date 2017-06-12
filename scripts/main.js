@@ -1,14 +1,14 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
 //Activate :active state
-document.addEventListener("touchstart", function() {
+document.addEventListener("touchstart", function () {
 }, false);
 
 function onDeviceReady() {
-	var app;
-	navigator.splashscreen.hide();
-	app = new Application();
-	app.run();
+    var app;
+    navigator.splashscreen.hide();
+    app = new Application();
+    app.run();
 }
 
 function Application() {
@@ -16,36 +16,37 @@ function Application() {
 
 Application.prototype = {
 
-	run: function() {
-		var that = this,
-			openLocal = document.getElementById("openLocal"),
-			openExternalInAppBrowser = document.getElementById("openExternalInAppBrowser"),
-			openExternalPDF = document.getElementById("openExternalPDF"),
-			openExternalInSystemBrowser = document.getElementById("openExternalInSystemBrowser");
+    run: function () {
+        var that = this,
+            openExternalInAppBrowser = document.getElementById("openExternalInAppBrowser");
+        openExternalInAppBrowser.addEventListener("click", that.openExternalInAppBrowser);
 
-			openLocal.addEventListener("click", that.openLocal);
-			openExternalInAppBrowser.addEventListener("click", that.openExternalInAppBrowser);
-			openExternalPDF.addEventListener("click", that.openExternalPDF);
-			openExternalInSystemBrowser.addEventListener("click", that.openExternalInSystemBrowser);
-	},
+        //openLocal = document.getElementById("openLocal"),
+        //openExternalPDF = document.getElementById("openExternalPDF"),
+        //openExternalInSystemBrowser = document.getElementById("openExternalInSystemBrowser");
 
-	openLocal: function() {
-		window.open("img/ice.png", "_blank");
-	},
- 
-	openExternalInAppBrowser:  function () {
+        //openLocal.addEventListener("click", that.openLocal);
+        //openExternalPDF.addEventListener("click", that.openExternalPDF);
+        //openExternalInSystemBrowser.addEventListener("click", that.openExternalInSystemBrowser);
+    },
+
+    //openLocal: function() {
+    //	window.open("img/ice.png", "_blank");
+    //},
+
+    openExternalInAppBrowser: function () {
         window.open("https://GoDigital.Accenture.com/Studio5/", "_blank", "toolbar=no,location=no");
-	},
+    },
 
-	openExternalPDF:  function () {
-		if (window.navigator.simulator === true) {
-			alert("Not Supported in Simulator.");
-		} else {
-            window.open("https://GoDigital.Accenture.com/Studio5/", "_blank");
-		}
-	},
+    //openExternalPDF:  function () {
+    //	if (window.navigator.simulator === true) {
+    //		alert("Not Supported in Simulator.");
+    //	} else {
+    //           window.open("https://GoDigital.Accenture.com/Studio5/", "_blank");
+    //	}
+    //},
 
-	openExternalInSystemBrowser:function () {
-        window.open("https://GoDigital.Accenture.com/Studio5/", "_system");
-	}
+    //openExternalInSystemBrowser:function () {
+    //       window.open("https://GoDigital.Accenture.com/Studio5/", "_system");
+    //}
 }
